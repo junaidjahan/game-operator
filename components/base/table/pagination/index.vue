@@ -41,7 +41,7 @@ const props = defineProps<Props>()
 const page = defineModel<number>('page', { default: 1, type: Number })
 const rowsPerPage = defineModel('rowsPerPage', { default: 1, type: Number })
 
-const pages = Array.from({ length: props.totalPages }, (_, i) => i + 1);
+const pages = computed(() =>  Array.from({ length: props.totalPages }, (_, i) => i + 1));
 const rowsPerPageData = [8, 20, 30, 50]
 
 </script>

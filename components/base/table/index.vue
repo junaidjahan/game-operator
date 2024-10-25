@@ -30,8 +30,8 @@
         <template #bottom>
             <div class="px-8 py-3 pagination rounded-lg">
                 <BaseTablePagination v-model:page="page" v-model:rows-per-page="rowsPerPage"
-                    :total-records="rows?.length" :total-pages="rows?.length / rowsPerPage" :start="start" :end="rows?.length ? end : 0"
-                    @update:page="updateData" @update:rows-per-page="updateData" />
+                    :total-records="rows?.length" :total-pages="Math.ceil(rows?.length / rowsPerPage)" :start="start"
+                    :end="rows?.length ? end : 0" @update:page="updateData" @update:rows-per-page="updateData" />
             </div>
         </template>
         <template v-for="(slot, index) in Object.keys($slots)" :key="index" v-slot:[slot]="slotProps">
@@ -41,30 +41,17 @@
 </template>
 
 <script setup lang="ts">
-import type { TableHeader } from './types/table.type';
+import type { TableProps } from './types/table.type';
+import { useTable } from './useTable';
 
-interface Props {
-    headers: Array<TableHeader>,
-    rows: Array<any>,
-}
 
-const props = defineProps<Props>()
+const props = defineProps<TableProps>()
 
 defineEmits(['row-click'])
 
 const model = defineModel()
 
-const page = ref(1)
-const rowsPerPage = ref(8)
-const paginatedData = ref()
-const start = ref(1)
-const end = ref(8)
-
-const updateData = () => {
-    start.value = (page.value - 1)  * rowsPerPage.value;
-    end.value = start.value + rowsPerPage.value;
-    paginatedData.value = props.rows?.slice(start.value, end.value);
-}
+const { page, rowsPerPage, paginatedData, start, end, updateData } = useTable(props)
 
 watchEffect(() => {
     paginatedData.value = props.rows?.filter((_, index) => index < rowsPerPage.value)
@@ -99,6 +86,7 @@ watchEffect(() => {
 
         td {
             border: none !important;
+            padding-block: 14.5px !important;
         }
 
         .active {

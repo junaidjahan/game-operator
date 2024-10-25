@@ -11,10 +11,10 @@
 </script>
 
 <style lang="scss">
-// .base-select{
+.base-select{
     input::placeholder{
         color: white !important;
         opacity: 1 !important;
     }
-// }
+}
 </style>

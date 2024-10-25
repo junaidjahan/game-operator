@@ -7,15 +7,18 @@
             </div>
             <v-row class="mt-14">
                 <v-col cols="8">
-                    <div class="px-8">
+                    <div class="pl-8">
                         <BaseTable v-model="selectedRow" :headers :rows="players!" @row-click="selectedRow = $event">
-                            <template #operatorSalary="{row, col}">
-                                <p class="pt-2">
+                            <template #operatorSalary="{ row, col }">
+                                <p class="pt-4">
                                     ${{ row[col] }}
                                 </p>
                             </template>
                         </BaseTable>
                     </div>
+                </v-col>
+                <v-col cols="4" class="pr-10" v-if="selectedRow">
+                    <GamePlayerPlayerCard :player="selectedRow" />
                 </v-col>
             </v-row>
         </div>
@@ -23,8 +26,11 @@
 </template>
 
 <script setup lang="ts">
+import type { SlatePlayer } from '~/types/slate.types';
 
-const players = ref(null)
+
+const players: Ref<Array<SlatePlayer>> = ref([])
+const selectedRow: Ref<SlatePlayer | null> = ref(null)
 const headers = [
     {
         title: 'Name',
@@ -47,7 +53,6 @@ const headers = [
         value: 'fantasyPoints'
     },
 ]
-const selectedRow = ref(null)
 
 
 </script>

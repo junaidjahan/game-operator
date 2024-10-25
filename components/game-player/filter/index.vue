@@ -1,6 +1,6 @@
 <template>
     <div>
-        <BaseCard class=" py-9" rounded="lg">
+        <BaseCard class="py-9" rounded="lg">
             <v-row no-gutters>
                 <v-col cols="12" sm="4">
                     <div class="ml-8">
@@ -26,30 +26,21 @@
 </template>
 
 <script setup lang="ts">
+import type { SlatePlayer } from '~/types/slate.types';
+import { useGamePlayerFilter } from './useGamePlayerFilter'
 
-import gamesData from "@/data/data.js"
+const model = defineModel<Array<SlatePlayer>>({ default: null })
 
-const model = defineModel()
-
-const operators: Array<string> = [...new Set(gamesData.map(game => game?.operator))]
-const gameTypes: Ref<Array<string>> = ref([])
-const operatorNames: Ref<Array<string>> = ref([])
-const slatePlayers: Ref<Array<string>> = ref([])
-const selectedOperator: Ref<string | null> = ref(null)
-const selectedGame: Ref<string | null> = ref(null)
-
-const handleOperator = (event: string) => {
-    gameTypes.value = [...new Set(gamesData?.filter(game => game.operator == event)?.map(game => game.operatorGameType))]
-}
-
-const handleGameType = (event: string) => {
-    operatorNames.value = [...new Set(gamesData?.filter(game => game.operatorGameType == event)?.map(game => game.operatorName))]?.flat()
-}
-
-const handleOperatorName = (event: string) => {
-    model.value = [...new Set(gamesData?.filter(game => game.operatorName == event)?.map(game => game.dfsSlatePlayers))]?.flat()
-}
-
+const {
+    operators,
+    gameTypes,
+    selectedOperator,
+    selectedGame,
+    operatorNames,
+    handleOperator,
+    handleGameType,
+    handleOperatorName,
+} = useGamePlayerFilter(model)
 </script>
 
 <style lang="scss" scoped></style>
