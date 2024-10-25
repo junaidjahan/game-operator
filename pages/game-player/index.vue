@@ -1,6 +1,9 @@
 <template>
     <div>
         This is game page
+        <v-btn>
+            Button
+        </v-btn>
     </div>
 </template>
 
@@ -8,6 +11,4 @@
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
