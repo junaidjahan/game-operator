@@ -23,4 +23,9 @@ export default defineNuxtConfig({
     },
   },
   css: ['@/assets/sass/main.scss'],
+  routeRules: {
+    '/': {
+      redirect: '/game-player',
+    },
+  },
 })
