@@ -1,5 +1,5 @@
 <template>
-    <v-select variant="solo" bg-color="black" density="comfortable" rounded="lg" hide-details class="base-select">
+    <v-select variant="solo" bg-color="black" density="comfortable"  :elevation="0" rounded="lg" hide-details class="base-select">
         <template v-for="(slot, index) in Object.keys($slots)" :key="index" v-slot:[slot]="slotProps">
             <slot :key="index" :name="slot" v-bind="slotProps"></slot>
         </template>
