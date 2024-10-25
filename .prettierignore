@@ -1,0 +1,8 @@
+node_modules
+.nuxt
+dist
+And an .eslintignore file:
+
+node_modules
+.nuxt
+dist
